@@ -5,3 +5,6 @@
 **Zero's get counted as lowest bluegill
 update Update Entry. breaks all non updated categories.
 **filter all data alphabetically
+
+
+https://github.com/typicode/lowdb 
