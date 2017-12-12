@@ -1,0 +1,7 @@
+**add notification when entry is added/updated/deleted succesfully
+**clear form on submit
+**create readme.html for other users.
+**add tab for all zero's regardless of age
+**Zero's get counted as lowest bluegill
+update Update Entry. breaks all non updated categories.
+**filter all data alphabetically

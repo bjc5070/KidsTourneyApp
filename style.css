@@ -1,0 +1,109 @@
+@media screen{
+	html{font-family: arial, helvetica, sans-serif;}
+	body{
+		max-width:1000px;
+		margin:0px auto;
+		}
+	#formActions{
+		width:30%;
+		background-color: #D3D3D3;
+		float:left;
+		padding:15px;
+		margin-top:20px;
+		}
+	#DataViewer{
+		width:60%;
+		border: 2px solid #B0C4DE;
+		float:right;
+		padding:15px;
+		margin-top:20px;
+	}
+	input {
+		width:80%;
+	}
+	ul#tabs { 
+		list-style-type: none; 
+		margin: 30px 0 0 0; 
+		padding: 0 0 0.3em 0; 
+	}
+	ul#tabs li { 
+		display: inline; 
+	}
+	ul#tabs li a { 
+		color: #42454a; 
+		background-color: #dedbde; 
+		border: 1px solid #c9c3ba; 
+		border-bottom: none; 
+		padding: 0.3em; 
+		text-decoration: none; 
+	}
+	ul#tabs li a:hover { 
+		background-color: #f1f0ee; }
+	ul#tabs li a.selected { 
+		color: #000; 
+		background-color: #f1f0ee; 
+		font-weight: bold; 
+		padding: 0.7em 0.3em 0.38em 0.3em; 
+	}
+	div.tabContent { 
+		border: 1px solid #c9c3ba; 
+		padding: 0.5em; 
+		background-color: #f1f0ee; 
+	}
+	div.tabContent.hide { 
+		display: none; 
+	}
+	#Clear{
+		color:red;
+	}
+	ol.sequence li{
+		margin:1% 0;
+	}
+}
+@media print{
+	#formActions{
+		display:none;
+	}
+	#DataViewer{
+		width:90%;
+		border: 2px solid #B0C4DE;
+		float:right;
+		padding:15px;
+		margin-top:20px;
+	}
+	input {
+		width:80%;
+	}
+	ul#tabs { 
+		list-style-type: none; 
+		margin: 30px 0 0 0; 
+		padding: 0 0 0.3em 0; 
+	}
+	ul#tabs li { 
+		display: inline; 
+	}
+	ul#tabs li a { 
+		color: #42454a; 
+		background-color: #dedbde; 
+		border: 1px solid #c9c3ba; 
+		border-bottom: none; 
+		padding: 0.3em; 
+		text-decoration: none; 
+	}
+	ul#tabs li a:hover { 
+		background-color: #f1f0ee; }
+	ul#tabs li a.selected { 
+		color: #000; 
+		background-color: #f1f0ee; 
+		font-weight: bold; 
+		padding: 0.7em 0.3em 0.38em 0.3em; 
+	}
+	div.tabContent { 
+		border: 1px solid #c9c3ba; 
+		padding: 0.5em; 
+		background-color: #f1f0ee; 
+	}
+	div.tabContent.hide { 
+		display: none; 
+	}
+}
