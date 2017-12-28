@@ -108,13 +108,35 @@ function getEveryone(){
 		results.forEach(function(row) {
 			s += "<tr>";
 			for(var field in row){
-				s += "<td>" + row[field] + "</td>";
+				if(field === 'Contestant'){
+					s += "<td class='ContName'>" + row[field] + "</td>";
+				}else{
+					s += "<td>" + row[field] + "</td>";
+				}
 			}
 			s += "</tr>";
 		});
 		document.querySelector("#DataBody").innerHTML = s;
+	}).then(function() {
+		var Names = document.getElementsByClassName('ContName');
+		for(var cn = 0; cn <= Names.length-1; cn++){
+			Names[cn].addEventListener("click", NameClick, false);
+		};
 	});
 }
+
+function NameClick(){
+	kids = db.getSchema().table('Contestants');
+	db.select().from(kids).where(kids.Contestant.eq(this.innerHTML)).exec().then(function(results) {
+		document.getElementById('Name').value = results[0].Contestant;
+		document.getElementById('Age').value = results[0].age;
+		document.getElementById('Num').value = results[0].num;
+		document.getElementById('Bluegill').value = results[0].bluegill;
+		document.getElementById('Perch').value = results[0].perch;
+		document.getElementById('Crappie').value = results[0].crappie;
+		document.getElementById('Catfish').value = results[0].catfish;
+	});
+}	
 
 function SaveEveryone(){
 	var kids = db.getSchema().table('Contestants');

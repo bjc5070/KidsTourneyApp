@@ -59,6 +59,9 @@
 	ol.sequence li{
 		margin:1% 0;
 	}
+	.ContName{
+		cursor: pointer;
+	}
 }
 @media print{
 	#formActions{

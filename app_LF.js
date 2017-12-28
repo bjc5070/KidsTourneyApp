@@ -6,16 +6,17 @@ window.onload = function(){
 	document.getElementById('Update').addEventListener("click", updateContestant, false);
 	document.getElementById('Remove').addEventListener("click", removeContestant, false);
 	document.getElementById('Everyone').addEventListener("click", getEveryone, false);
-	document.getElementById('Populate').addEventListener("click", PopulateFakeData, false);
+	document.getElementById('Populate').addEventListener("click", PopulateFileData, false);
 	document.getElementById('Create').addEventListener("click", CreateDataSets, false);
 	document.getElementById('Rank').addEventListener("click", RankSpeciesZerosAll, false);
 	document.getElementById('Build').addEventListener("click", buildWinnersAll, false);
 	document.getElementById('Save').addEventListener("click", SaveEveryone, false);
+	document.getElementById('LoadFile').addEventListener("click", FileSelect, false);
 }
 //schema creation
 var schemaBuilder = lf.schema.create('KTDB_LF',1),
 //Fake test data
-	FakeInfo = [{"Contestant":"Allison Blake","age":8,"num":1,"bluegill":0.25,"perch":0,"crappie":0,"catfish":0,"rank":8,"species":"bluegill"},{"Contestant":"Bailee Ewell","age":6,"num":45,"bluegill":0,"perch":0,"crappie":0,"catfish":0,"rank":4,"species":"bluegill"},{"Contestant":"Blake Wilhite","age":12,"num":44,"bluegill":0,"perch":0,"crappie":0,"catfish":2.13,"rank":5,"species":"catfish"},{"Contestant":"Carter Ray","age":7,"num":39,"bluegill":0,"perch":0,"crappie":2.05,"catfish":0,"rank":1,"species":"crappie"},{"Contestant":"Casey Zurzolo","age":12,"num":36,"bluegill":0.3,"perch":0.16,"crappie":0.33,"catfish":0,"rank":8,"species":"bluegill"},{"Contestant":"Cash Walker","age":9,"num":27,"bluegill":0.35,"perch":0.23,"crappie":1.04,"catfish":6.54,"rank":3,"species":"bluegill"},{"Contestant":"Christian Leone","age":15,"num":16,"bluegill":0,"perch":0,"crappie":0,"catfish":0,"rank":4,"species":"bluegill"},{"Contestant":"Cody Conrad","age":13,"num":11,"bluegill":0,"perch":0,"crappie":1.34,"catfish":0,"rank":1,"species":"crappie"},{"Contestant":"Colton Blake","age":5,"num":2,"bluegill":0,"perch":0,"crappie":0,"catfish":0,"rank":5,"species":"bluegill"},{"Contestant":"Connor Henning","age":4,"num":17,"bluegill":0,"perch":0,"crappie":0.5,"catfish":4.34,"rank":8,"species":"crappie"},{"Contestant":"Cooper Vensel","age":3,"num":14,"bluegill":0.3,"perch":0,"crappie":0.72,"catfish":0,"rank":4,"species":"bluegill"},{"Contestant":"Darik Abdulovic","age":9,"num":15,"bluegill":0,"perch":0,"crappie":0,"catfish":5.01,"rank":3,"species":"catfish"},{"Contestant":"Dayten Kriess","age":5,"num":41,"bluegill":0,"perch":0,"crappie":1.74,"catfish":0,"rank":1,"species":"crappie"},{"Contestant":"Destiny Bortz","age":11,"num":8,"bluegill":0.28,"perch":0.51,"crappie":0.51,"catfish":6,"rank":10,"species":"bluegill"},{"Contestant":"Dominic Cancilla","age":5,"num":21,"bluegill":0.31,"perch":0.62,"crappie":0.39,"catfish":2.16,"rank":3,"species":"bluegill"},{"Contestant":"Dylan Gibbons","age":12,"num":3,"bluegill":0,"perch":0,"crappie":0,"catfish":0,"rank":3,"species":"bluegill"},{"Contestant":"Elliot Dennis-Fair","age":2,"num":28,"bluegill":0.33,"perch":0,"crappie":0.94,"catfish":2.32,"rank":2,"species":"bluegill"},{"Contestant":"Emily Kumpfmiller","age":2,"num":40,"bluegill":0,"perch":0,"crappie":1.7,"catfish":0,"rank":2,"species":"crappie"},{"Contestant":"Emily Smith","age":4,"num":47,"bluegill":0.3,"perch":0,"crappie":0,"catfish":0,"rank":5,"species":"bluegill"},{"Contestant":"Gage Sumansky","age":5,"num":19,"bluegill":0.27,"perch":0,"crappie":0.26,"catfish":0,"rank":7,"species":"bluegill"},{"Contestant":"Gaspare Parco","age":11,"num":7,"bluegill":0.32,"perch":0,"crappie":0,"catfish":0,"rank":5,"species":"bluegill"},{"Contestant":"Gracyn Vardy","age":8,"num":9,"bluegill":0,"perch":0,"crappie":0.33,"catfish":0,"rank":7,"species":"crappie"},{"Contestant":"Hannah Kemmer","age":14,"num":38,"bluegill":0.38,"perch":1.7,"crappie":0.29,"catfish":0,"rank":1,"species":"bluegill"},{"Contestant":"Harley Kriess","age":12,"num":42,"bluegill":0,"perch":0,"crappie":0,"catfish":1.45,"rank":7,"species":"catfish"},{"Contestant":"Hunter Doerflinger","age":8,"num":31,"bluegill":0.41,"perch":0.85,"crappie":0.57,"catfish":0.66,"rank":1,"species":"bluegill"},{"Contestant":"Isaac Smith","age":5,"num":48,"bluegill":0,"perch":0.12,"crappie":0,"catfish":0,"rank":3,"species":"perch"},{"Contestant":"Isabella Concilla","age":3,"num":22,"bluegill":0.26,"perch":0,"crappie":0.31,"catfish":0,"rank":8,"species":"bluegill"},{"Contestant":"Joey Hart","age":11,"num":34,"bluegill":0,"perch":0,"crappie":0.72,"catfish":2.38,"rank":4,"species":"crappie"},{"Contestant":"Josie Wilhite","age":2,"num":43,"bluegill":0,"perch":0,"crappie":1.2,"catfish":0,"rank":4,"species":"crappie"},{"Contestant":"Keaton Jesteadt","age":14,"num":33,"bluegill":0,"perch":0.16,"crappie":0.77,"catfish":1.62,"rank":7,"species":"perch"},{"Contestant":"Landon Kumpfmiller","age":3,"num":23,"bluegill":0.22,"perch":0,"crappie":1.68,"catfish":0,"rank":10,"species":"bluegill"},{"Contestant":"Lexi Doerflinger","age":11,"num":32,"bluegill":0.35,"perch":0.26,"crappie":1.2,"catfish":1.12,"rank":3,"species":"bluegill"},{"Contestant":"Liam Throm","age":8,"num":52,"bluegill":0.27,"perch":0,"crappie":0,"catfish":0,"rank":7,"species":"bluegill"},{"Contestant":"Logan Orloski","age":14,"num":25,"bluegill":0.35,"perch":0,"crappie":0.27,"catfish":0,"rank":2,"species":"bluegill"},{"Contestant":"Luc Tebay","age":8,"num":46,"bluegill":0.33,"perch":0.22,"crappie":1.06,"catfish":6.49,"rank":4,"species":"bluegill"},{"Contestant":"Luke Keene","age":11,"num":4,"bluegill":0.32,"perch":0,"crappie":0.45,"catfish":3.68,"rank":4,"species":"bluegill"},{"Contestant":"Luke Nelson","age":12,"num":49,"bluegill":0.29,"perch":0,"crappie":0,"catfish":0,"rank":9,"species":"bluegill"},{"Contestant":"Marley Fish","age":12,"num":13,"bluegill":0.31,"perch":0.17,"crappie":0.29,"catfish":0,"rank":6,"species":"bluegill"},{"Contestant":"Mikenzie Kneidinger","age":3,"num":51,"bluegill":0.27,"perch":0.28,"crappie":0.3,"catfish":0,"rank":6,"species":"bluegill"},{"Contestant":"Nathan Dickey","age":8,"num":5,"bluegill":0.28,"perch":0,"crappie":0.27,"catfish":3.6,"rank":6,"species":"bluegill"},{"Contestant":"Noah Chupka","age":8,"num":18,"bluegill":0,"perch":0,"crappie":0,"catfish":0,"rank":5,"species":"bluegill"},{"Contestant":"Peyton Beck","age":6,"num":24,"bluegill":0.21,"perch":0,"crappie":2.04,"catfish":1.42,"rank":9,"species":"bluegill"},{"Contestant":"Rachel Leslie","age":12,"num":29,"bluegill":0,"perch":0,"crappie":0,"catfish":3.48,"rank":3,"species":"catfish"},{"Contestant":"Riley Dashio","age":14,"num":35,"bluegill":0.3,"perch":0.26,"crappie":0.6,"catfish":0,"rank":7,"species":"bluegill"},{"Contestant":"Ryan Leslie","age":10,"num":30,"bluegill":0,"perch":0,"crappie":0,"catfish":2.43,"rank":5,"species":"catfish"},{"Contestant":"Skylar Callen","age":6,"num":20,"bluegill":0.32,"perch":0,"crappie":0,"catfish":0,"rank":5,"species":"bluegill"},{"Contestant":"Steven Fair","age":14,"num":26,"bluegill":0.2,"perch":0,"crappie":0.33,"catfish":0,"rank":11,"species":"bluegill"},{"Contestant":"Sydney Zurzolo","age":8,"num":37,"bluegill":0.35,"perch":0.19,"crappie":0.35,"catfish":0,"rank":2,"species":"bluegill"},{"Contestant":"Taylor Conrad","age":11,"num":12,"bluegill":0,"perch":0,"crappie":0.26,"catfish":0,"rank":13,"species":"crappie"},{"Contestant":"Tehlor Kneidinger","age":3,"num":50,"bluegill":0.24,"perch":0.09,"crappie":0.55,"catfish":0.71,"rank":9,"species":"bluegill"},{"Contestant":"Walker Vardy","age":3,"num":10,"bluegill":0.37,"perch":0,"crappie":0,"catfish":0,"rank":1,"species":"bluegill"},{"Contestant":"Willem Wolfe","age":10,"num":6,"bluegill":0,"perch":0,"crappie":0,"catfish":0,"rank":6,"species":"bluegill"}],
+	fileDataJson = [{"Contestant":"Aiden Wilhelm","age":4,"num":86,"bluegill":0.38,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Alexis Fleming","age":12,"num":37,"bluegill":0.29,"perch":0.24,"crappie":0.63,"catfish":0},{"Contestant":"Allison Flatt","age":11,"num":67,"bluegill":0.25,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Anna Leasure","age":5,"num":54,"bluegill":0.14,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Austin Ruckert","age":10,"num":43,"bluegill":0.26,"perch":0,"crappie":0.39,"catfish":6.46},{"Contestant":"Avery Aglio","age":7,"num":61,"bluegill":0.25,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Bailey Kujbus","age":6,"num":26,"bluegill":0,"perch":0,"crappie":0,"catfish":8.22},{"Contestant":"Blake Wilhite","age":11,"num":46,"bluegill":0,"perch":0,"crappie":0.79,"catfish":0},{"Contestant":"Braiden Reich","age":10,"num":22,"bluegill":0.12,"perch":0,"crappie":0.25,"catfish":0},{"Contestant":"Brendan Gregory","age":7,"num":34,"bluegill":0.27,"perch":0.31,"crappie":0.81,"catfish":0},{"Contestant":"Brenna Vaughn","age":12,"num":1,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Brennan Wegner","age":5,"num":81,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Brody Kniess","age":5,"num":69,"bluegill":0.21,"perch":0,"crappie":0.41,"catfish":0},{"Contestant":"Caleb Sutter","age":15,"num":38,"bluegill":0.25,"perch":0,"crappie":0.78,"catfish":5.32},{"Contestant":"Carter Proudfoot","age":7,"num":71,"bluegill":0.24,"perch":0.14,"crappie":0,"catfish":0},{"Contestant":"Carter Ray","age":6,"num":9,"bluegill":0.26,"perch":0.36,"crappie":0.88,"catfish":0.57},{"Contestant":"Casey Zurzolo","age":11,"num":51,"bluegill":0.34,"perch":0.2,"crappie":0.4,"catfish":0},{"Contestant":"Cash Walker","age":8,"num":8,"bluegill":0.28,"perch":0.17,"crappie":0.9,"catfish":4.43},{"Contestant":"Christian Leone","age":14,"num":76,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Cody Conrad","age":12,"num":59,"bluegill":0,"perch":0,"crappie":0.88,"catfish":0},{"Contestant":"Connor Henning","age":3,"num":77,"bluegill":0,"perch":0.18,"crappie":0.34,"catfish":0.74},{"Contestant":"Connor McCall","age":6,"num":72,"bluegill":0.26,"perch":0,"crappie":0.24,"catfish":0},{"Contestant":"Dalton Johnson","age":13,"num":60,"bluegill":0,"perch":0,"crappie":0,"catfish":3.28},{"Contestant":"Darik Abdulovic","age":8,"num":79,"bluegill":0,"perch":0,"crappie":0.37,"catfish":4.18},{"Contestant":"Dayton Kriess","age":4,"num":47,"bluegill":0,"perch":0,"crappie":0.73,"catfish":0},{"Contestant":"Deyton Reich","age":6,"num":57,"bluegill":0,"perch":0,"crappie":0.24,"catfish":0},{"Contestant":"Dylan Gibbons","age":11,"num":84,"bluegill":0.24,"perch":0.21,"crappie":0.31,"catfish":0},{"Contestant":"Dylan Reich","age":8,"num":58,"bluegill":0.16,"perch":0,"crappie":0.28,"catfish":0},{"Contestant":"Elijah Anderson","age":9,"num":24,"bluegill":0,"perch":0,"crappie":0.29,"catfish":3.56},{"Contestant":"Elliot Fair","age":1,"num":75,"bluegill":0.18,"perch":0.14,"crappie":0.86,"catfish":0},{"Contestant":"Emily Claire Smith","age":3,"num":11,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Emma Reich","age":10,"num":23,"bluegill":0.21,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Emma Snow","age":5,"num":40,"bluegill":0,"perch":0,"crappie":0,"catfish":5.8},{"Contestant":"Fiona Alter","age":6,"num":13,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Gage Sumansky","age":4,"num":74,"bluegill":0.26,"perch":0.17,"crappie":0.71,"catfish":0},{"Contestant":"Hannah Kemmer","age":13,"num":70,"bluegill":0.27,"perch":0.1,"crappie":0.57,"catfish":0},{"Contestant":"Harley Kriess","age":11,"num":48,"bluegill":0,"perch":0,"crappie":0.81,"catfish":0},{"Contestant":"Hunter Doerflinger","age":7,"num":16,"bluegill":0.32,"perch":0.14,"crappie":0.76,"catfish":0.98},{"Contestant":"Hunter Frederick","age":11,"num":65,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Hunter Organ","age":6,"num":19,"bluegill":0,"perch":0,"crappie":0.8,"catfish":7.45},{"Contestant":"Ian Wilhelm","age":7,"num":87,"bluegill":0,"perch":0,"crappie":0.28,"catfish":0},{"Contestant":"Isaac Smith","age":4,"num":10,"bluegill":0.18,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Isabella Galida","age":4,"num":73,"bluegill":0.27,"perch":0.18,"crappie":0.19,"catfish":0},{"Contestant":"Jacob Reich","age":7,"num":21,"bluegill":0.28,"perch":0,"crappie":0.29,"catfish":0},{"Contestant":"Jeff Cuffman","age":7,"num":31,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Jesse Montgomery","age":13,"num":82,"bluegill":0,"perch":0,"crappie":0.49,"catfish":4.72},{"Contestant":"Joel Dean","age":12,"num":12,"bluegill":0.34,"perch":0.29,"crappie":0.32,"catfish":0},{"Contestant":"Joey Hart","age":10,"num":20,"bluegill":0.28,"perch":0,"crappie":0.16,"catfish":0},{"Contestant":"Jordan Vaughn","age":7,"num":5,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Joseph Knochel","age":12,"num":4,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Julia Brania","age":8,"num":88,"bluegill":0.31,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Karter Frederick","age":9,"num":64,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Kaylee Kniess","age":6,"num":28,"bluegill":0.24,"perch":0,"crappie":0.29,"catfish":0},{"Contestant":"Keaton Jesteadt","age":13,"num":18,"bluegill":0.19,"perch":0.32,"crappie":1.05,"catfish":3.8},{"Contestant":"Kylie Workman","age":5,"num":39,"bluegill":0.14,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Landon Kumpfmiller","age":2,"num":35,"bluegill":0,"perch":0.22,"crappie":0.47,"catfish":0},{"Contestant":"Levi Kujbus","age":4,"num":27,"bluegill":0,"perch":0,"crappie":0,"catfish":5.96},{"Contestant":"Lexi Doerflinger","age":10,"num":15,"bluegill":0.32,"perch":0.1,"crappie":7,"catfish":2.91},{"Contestant":"Luc Tebay","age":7,"num":80,"bluegill":0.27,"perch":0.37,"crappie":0.46,"catfish":3.94},{"Contestant":"Luke Keene","age":9,"num":91,"bluegill":0.27,"perch":0.11,"crappie":0.64,"catfish":0},{"Contestant":"Luke Nelson","age":11,"num":45,"bluegill":0,"perch":0.25,"crappie":0.84,"catfish":0},{"Contestant":"Maddox Bell","age":9,"num":90,"bluegill":0.28,"perch":0,"crappie":0.35,"catfish":0},{"Contestant":"Maddox Reich","age":5,"num":56,"bluegill":0.25,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Madison Vaughn","age":11,"num":2,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Marley Fish","age":11,"num":66,"bluegill":0.25,"perch":0.35,"crappie":0,"catfish":0},{"Contestant":"Mason Cuffman","age":6,"num":33,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Mike Doerflinger","age":15,"num":14,"bluegill":0.3,"perch":0.53,"crappie":0.87,"catfish":0.64},{"Contestant":"Mikenzie Kneidinger","age":5,"num":17,"bluegill":0.15,"perch":0.21,"crappie":0.24,"catfish":0.63},{"Contestant":"Morgan Barber","age":3,"num":42,"bluegill":0.29,"perch":0,"crappie":0.88,"catfish":0},{"Contestant":"Nash Cuiffman","age":6,"num":32,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Nathan Dickey","age":7,"num":53,"bluegill":0.29,"perch":0.57,"crappie":0.39,"catfish":0.4},{"Contestant":"Nathan Kniess","age":13,"num":29,"bluegill":0.16,"perch":0,"crappie":0.43,"catfish":0},{"Contestant":"Nicholas Alter","age":9,"num":89,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Noah Ruby","age":7,"num":49,"bluegill":0.31,"perch":0,"crappie":0.7,"catfish":2.9},{"Contestant":"Owen Flatt","age":8,"num":68,"bluegill":0.24,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Parker Frederick","age":7,"num":63,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Peyton Beck","age":5,"num":36,"bluegill":0.27,"perch":0,"crappie":0.87,"catfish":0},{"Contestant":"Rachel Leslie","age":11,"num":7,"bluegill":0,"perch":0,"crappie":0.67,"catfish":0},{"Contestant":"Riley Dashio","age":13,"num":78,"bluegill":0.27,"perch":0.3,"crappie":1.05,"catfish":0},{"Contestant":"Ryan Leslie","age":9,"num":6,"bluegill":0,"perch":0,"crappie":0.5,"catfish":0},{"Contestant":"Ryder Snow","age":2,"num":41,"bluegill":0,"perch":0,"crappie":0,"catfish":6.65},{"Contestant":"Rylan Zupko","age":8,"num":83,"bluegill":0.39,"perch":0.15,"crappie":0.27,"catfish":0},{"Contestant":"Rylin Edwards","age":9,"num":85,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Skylar Callen","age":5,"num":25,"bluegill":0.32,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Stephen Vaughn, Jr.","age":9,"num":3,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Steven Fair","age":13,"num":44,"bluegill":0,"perch":0.1,"crappie":0.52,"catfish":0.48},{"Contestant":"Steven Leasure","age":7,"num":55,"bluegill":0.17,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Sydney Zurzolo","age":7,"num":50,"bluegill":0.26,"perch":0.35,"crappie":0.33,"catfish":0},{"Contestant":"Taylor Conrad","age":10,"num":52,"bluegill":0,"perch":0,"crappie":0.53,"catfish":0},{"Contestant":"Tucker Frederick","age":2,"num":62,"bluegill":0,"perch":0,"crappie":0,"catfish":0},{"Contestant":"Zac Kniess","age":10,"num":30,"bluegill":0.18,"perch":0,"crappie":0.23,"catfish":0}],
 	db,
 	Kids;
 
@@ -110,18 +111,46 @@ function removeContestant(){
 		}
 }
 
-function PopulateFakeData(){
+function FileSelect(filePath) {
+	var Path = document.getElementById('FileSelect').files[0];
+	var fileRead = new FileReader();
+
+	fileRead.onload = function() {
+		fileDataJson = JSON.parse(fileRead.result);
+		PopulateFileData();
+	}
+	fileRead.readAsText(Path);
+}
+
+function loadFromFile(file) {
+	var File = new XMLHttpRequest();
+	File.open("Get", file, false);
+	File.onreadystatechange = function ()
+    {
+        if(File.readyState === 4)
+        {
+            if(File.status === 200 || File.status == 0)
+            {
+				var fileData = File.responseText;
+				console.log(fileData);
+            }
+        }
+    }
+    File.send(null);
+}
+
+function PopulateFileData(){
 	kids = db.getSchema().table('Contestants');
 
-	for(var i in FakeInfo) {
+	for(var i in fileDataJson) {
 		var row = kids.createRow({
-		'Contestant' : FakeInfo[i].Contestant,
-		'age'  : FakeInfo[i].age, 
-		'num'  : FakeInfo[i].num, 
-		'bluegill': FakeInfo[i].bluegill, 
-		'perch': FakeInfo[i].perch, 
-		'crappie': FakeInfo[i].crappie, 
-		'catfish': FakeInfo[i].catfish
+		'Contestant' : fileDataJson[i].Contestant,
+		'age'  : fileDataJson[i].age, 
+		'num'  : fileDataJson[i].num, 
+		'bluegill': fileDataJson[i].bluegill, 
+		'perch': fileDataJson[i].perch, 
+		'crappie': fileDataJson[i].crappie, 
+		'catfish': fileDataJson[i].catfish
 		});
 		db.insertOrReplace().into(kids).values([row]).exec();
 	}
@@ -134,13 +163,34 @@ function getEveryone(){
 		results.forEach(function(row) {
 			s += "<tr>";
 			for(var field in row){
-				s += "<td>" + row[field] + "</td>";
+				if(field === 'Contestant'){
+					s += "<td class='ContName'>" + row[field] + "</td>";
+				}else{
+					s += "<td>" + row[field] + "</td>";
+				}
 			}
 			s += "</tr>";
 		});
 		document.querySelector("#DataBody").innerHTML = s;
+	}).then(function() {
+		var Names = document.getElementsByClassName('ContName');
+		for(var cn = 0; cn <= Names.length-1; cn++){
+			Names[cn].addEventListener("click", NameClick, false);
+		};
 	});
 }
+function NameClick(){
+	kids = db.getSchema().table('Contestants');
+	db.select().from(kids).where(kids.Contestant.eq(this.innerHTML)).exec().then(function(results) {
+		document.getElementById('Name').value = results[0].Contestant;
+		document.getElementById('Age').value = results[0].age;
+		document.getElementById('Num').value = results[0].num;
+		document.getElementById('Bluegill').value = results[0].bluegill;
+		document.getElementById('Perch').value = results[0].perch;
+		document.getElementById('Crappie').value = results[0].crappie;
+		document.getElementById('Catfish').value = results[0].catfish;
+	});
+}	
 
 function SaveEveryone(){
 	var kids = db.getSchema().table('Contestants');
