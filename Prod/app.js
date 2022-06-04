@@ -305,12 +305,12 @@ function buildWinnersByAge(fishByAge, ageGroup, ageTable){
 	});
 	/*remove duplicates*/
 	/*stores each index as a variable to compare to the rest of the array*/
-	for(var i=0; i<=unfilteredAgeGroup.length-1; i++){
+	for(var i=0; i <= unfilteredAgeGroup.length-1; i++){
 		var cV3 = unfilteredAgeGroup[i].Contestant,
 			cV3Rank = unfilteredAgeGroup[i].rank;
 			
 		/*begins at next index to compare to the rest*/
-		for(k=0; k<unfilteredAgeGroup.length-1; k++){
+		for(k=0; k < unfilteredAgeGroup.length-1; k++){
 			if(unfilteredAgeGroup[i] === unfilteredAgeGroup[k]){
 				continue;
 			}
