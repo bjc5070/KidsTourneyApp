@@ -2,9 +2,9 @@
 /* Lovefield.js Database project for BBC Kids Tournament */
 window.onload = function(){
 	document.getElementById('Clear').onclick=function(){alert('are you sure you want to clear indexedDB and Local Storage?');indexedDB.deleteDatabase('KTDB_LF');localStorage.clear();};
-	document.getElementById('Add').addEventListener("click", addContestant, false);
-	document.getElementById('Update').addEventListener("click", updateContestant, false);
-	document.getElementById('Remove').addEventListener("click", removeContestant, false);
+	document.getElementById('Add').addEventListener("click", function () {addContestant();getEveryone();}, false);
+	document.getElementById('Update').addEventListener("click", function() {updateContestant();getEveryone();}, false);
+	document.getElementById('Remove').addEventListener("click", function() {removeContestant();getEveryone();}, false);
 	document.getElementById('Everyone').addEventListener("click", getEveryone, false);
 	document.getElementById('Create').addEventListener("click", CreateDataSets, false);
 	document.getElementById('Rank').addEventListener("click", RankSpeciesZerosAll, false);
@@ -31,6 +31,16 @@ schemaBuilder.createTable('Contestants')
 schemaBuilder.connect().then(function(dbInstance){
 	db = dbInstance;
 });
+
+function fixZeros(Contestant) {
+	// fill zeros if NaN
+	['bluegill','perch','crappie','catfish'].forEach(function(elem) {
+		if(Number.isNaN(Contestant.m[elem])) {
+			Contestant.m[elem] = 0;
+		}
+	});
+};
+
 function addContestant(){
 	var contestant = document.getElementById('Name').value,
 		age = parseInt(document.getElementById('Age').value, 10),
@@ -49,6 +59,7 @@ function addContestant(){
 			'crappie':crappie,
 			'catfish':catfish
 		});
+		fixZeros(newContestant);
 		//clear form fields
 		var InputVals = document.getElementsByTagName('input');
 		for(var i = 0; i<=InputVals.length-1;i++){
@@ -79,6 +90,7 @@ function updateContestant(){
 			'crappie':crappie,
 			'catfish':catfish
 		});
+		fixZeros(updatedContestant);
 		//clear form fields
 		var InputVals = document.getElementsByTagName('input');
 		for(var i = 0; i<=InputVals.length-1;i++){
