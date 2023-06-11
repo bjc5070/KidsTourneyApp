@@ -321,7 +321,9 @@ function buildWinnersByAge(fishByAge, ageGroup, ageTable){
 				k-=1;
 			}
 			/*fist instance has worse rank*/
-			if(cV3 === unfilteredAgeGroup[k].Contestant && cV3Rank >= unfilteredAgeGroup[k].rank){
+			if(cV3 === unfilteredAgeGroup[k].Contestant && 
+				cV3Rank >= unfilteredAgeGroup[k].rank &&
+				unfilteredAgeGroup[k].species != unfilteredAgeGroup[i].species){
 				unfilteredAgeGroup.splice(i,1);
 				/*sets index back one to avoid splice index change issue*/
 				k = unfilteredAgeGroup.length;
