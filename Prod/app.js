@@ -310,7 +310,7 @@ function buildWinnersByAge(fishByAge, ageGroup, ageTable){
 			cV3Rank = unfilteredAgeGroup[i].rank;
 			
 		/*begins at next index to compare to the rest*/
-		for(k=0; k < unfilteredAgeGroup.length-1; k++){
+		for(k=0; k <= unfilteredAgeGroup.length-1; k++){
 			if(unfilteredAgeGroup[i] === unfilteredAgeGroup[k]){
 				continue;
 			}
