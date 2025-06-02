@@ -422,6 +422,7 @@ function buildWinnersByAge(fishByAge, ageGroup, ageTable){
 			s += "<td>" + row.Contestant + "</td>";
 			s += "<td>" + row.num + "</td>";
 			s += "<td>" + row[BestWeight] + "</td>";
+			s += "<td>" + [row.catfish, row.crappie, row.perch, row.bluegill].filter((fishWeight) => fishWeight > 0).length + "</td>";
 			s += "</tr>";
 		});
 		document.querySelector("#Data"+ ageTable).innerHTML = s;
