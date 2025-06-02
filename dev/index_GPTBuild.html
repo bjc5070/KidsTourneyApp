@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish Contest Sorting App</title>
+    <script src="https://unpkg.com/lovefield/dist/lovefield.min.js"></script>
+</head>
+<body>
+    <h1>Fish Contestants Sorted by Age and Ranked by Species Priority (With Total Fish Caught)</h1>
+    <div id="result"></div>
+
+    <script>
+        // Initialize schema
+        const schemaBuilder = lf.schema.create('fish_contest', 1);
+
+        // Define Contestant table with multi-species
+        schemaBuilder.createTable('Contestant')
+            .addColumn('id', lf.Type.INTEGER)
+            .addColumn('name', lf.Type.STRING)
+            .addColumn('age', lf.Type.INTEGER)
+            .addColumn('catfish', lf.Type.FLOAT)
+            .addColumn('crappie', lf.Type.FLOAT)
+            .addColumn('perch', lf.Type.FLOAT)
+            .addColumn('bluegill', lf.Type.FLOAT)
+            .addPrimaryKey(['id']);
+
+        let db;  // Variable to hold the Lovefield database connection
+
+        // Sample data for contestants
+        const contestants = [
+            {id: 1, name: 'Alice', age: 4, catfish: 0.5, crappie: 0.17, perch: 0.05, bluegill: 0.25},
+            {id: 2, name: 'Bob', age: 7, catfish: 0.0, crappie: 0.25, perch: 0.1, bluegill: 0.3},
+            {id: 3, name: 'Charlie', age: 12, catfish: 0.3, crappie: 0.5, perch: 0.2, bluegill: 0.4},
+            {id: 4, name: 'Dave', age: 9, catfish: 0.2, crappie: 0.1, perch: 0.0, bluegill: 0.1},
+            {id: 5, name: 'Eve', age: 3, catfish: 0.8, crappie: 0.3, perch: 0.1, bluegill: 0.1},
+            {id: 6, name: 'Frank', age: 14, catfish: 0.5, crappie: 0.2, perch: 0.3, bluegill: 0.2},
+            {id: 7, name: 'Grace', age: 5, catfish: 0.4, crappie: 0.15, perch: 0.2, bluegill: 0.05},
+            {id: 8, name: 'Hank', age: 11, catfish: 0.6, crappie: 0.25, perch: 0.0, bluegill: 0.1},
+        ];
+
+        // Connect to the database and store the connection in 'db'
+        schemaBuilder.connect().then(database => {
+            db = database;  // Store the database connection
+
+            const contestantTable = db.getSchema().table('Contestant');
+
+            // Insert all contestants into the database
+            const rows = contestants.map(c => contestantTable.createRow(c));
+            return db.insertOrReplace().into(contestantTable).values(rows).exec();
+        }).then(() => {
+            // Query: Sort by age groups, then by species priority (Catfish > Crappie > Perch > Bluegill)
+            const contestantTable = db.getSchema().table('Contestant');
+            
+            // Select all contestants
+            return db.select()
+                .from(contestantTable)
+                .orderBy(contestantTable.age)
+                .exec();
+        }).then(results => {
+            // Group by age categories and prioritize by heaviest fish in species priority order
+            const ageGroups = {
+                '0-5': [],
+                '6-10': [],
+                '11-15': []
+            };
+
+            // Categorize results into age groups
+            results.forEach(contestant => {
+                if (contestant.age >= 0 && contestant.age <= 5) {
+                    ageGroups['0-5'].push(contestant);
+                } else if (contestant.age >= 6 && contestant.age <= 10) {
+                    ageGroups['6-10'].push(contestant);
+                } else if (contestant.age >= 11 && contestant.age <= 15) {
+                    ageGroups['11-15'].push(contestant);
+                }
+            });
+
+            // Sort contestants in each age group by species priority (Catfish > Crappie > Perch > Bluegill)
+            for (let group in ageGroups) {
+                ageGroups[group].sort((a, b) => {
+                    // Compare by Catfish weight
+                    if (b.catfish !== a.catfish) return b.catfish - a.catfish;
+                    // Compare by Crappie weight if Catfish is tied
+                    if (b.crappie !== a.crappie) return b.crappie - a.crappie;
+                    // Compare by Perch weight if Crappie is tied
+                    if (b.perch !== a.perch) return b.perch - a.perch;
+                    // Compare by Bluegill weight if Perch is tied
+                    if (b.bluegill !== a.bluegill) return b.bluegill - a.bluegill;
+                    // If all fish weights are tied, return 0
+                    return 0;
+                });
+
+                // Assign ranks based on the highest-ranked species
+                let rank = 1;
+                ageGroups[group].forEach(contestant => {
+                    if (contestant.catfish > 0) {
+                        contestant.rank = rank;
+                    } else if (contestant.crappie > 0) {
+                        contestant.rank = rank;
+                    } else if (contestant.perch > 0) {
+                        contestant.rank = rank;
+                    } else if (contestant.bluegill > 0) {
+                        contestant.rank = rank;
+                    } else {
+                        contestant.rank = rank;  // If no fish, still give a rank
+                    }
+                    // Calculate total number of fish caught (count non-zero weights)
+                    contestant.totalFishCaught = 0;
+                    if (contestant.catfish > 0) contestant.totalFishCaught++;
+                    if (contestant.crappie > 0) contestant.totalFishCaught++;
+                    if (contestant.perch > 0) contestant.totalFishCaught++;
+                    if (contestant.bluegill > 0) contestant.totalFishCaught++;
+                    rank++;  // Increment rank for the next contestant
+                });
+            }
+
+            // Display sorted results with ranks and total number of fish caught
+            displayResults(ageGroups);
+        });
+
+        // Helper function to display results in HTML
+        function displayResults(ageGroups) {
+            const resultDiv = document.getElementById('result');
+            for (let group in ageGroups) {
+                resultDiv.innerHTML += `<h2>Age Group ${group}</h2><ul>`;
+                ageGroups[group].forEach(contestant => {
+                    resultDiv.innerHTML += `<li>${contestant.name}, Age: ${contestant.age}, Rank: ${contestant.rank}, Total Fish Caught: ${contestant.totalFishCaught}, Catfish: ${contestant.catfish} lbs, Crappie: ${contestant.crappie} lbs, Perch: ${contestant.perch} lbs, Bluegill: ${contestant.bluegill} lbs</li>`;
+                });
+                resultDiv.innerHTML += '</ul>';
+            }
+        }
+    </script>
+</body>
+</html>
